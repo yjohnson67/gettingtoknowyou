@@ -1,0 +1,8 @@
+<h1>Greeting App</h1>
+ 
+<form method="POST">
+  {% csrf_token %}
+  Name: <input type="text" name="name"><br>
+  Favorite Color: <input type="text" name="color"><br>
+<button type="submit">Submit</button>
+</form>
