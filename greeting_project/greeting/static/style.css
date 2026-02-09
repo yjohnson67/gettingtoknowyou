@@ -1,1 +1,8 @@
-body { font-family: Arial; }
+body {
+   font-family: Arial; }
+
+nav a {
+  margin-right: 10px;
+  text-decoration: none;
+  font-weight: bold;
+}

@@ -6,11 +6,13 @@ def home(request):
         color = request.POST.get('color')
  
         if not name:
-            return render(request, 'home.html', {'error':'Name required'})
+            return render(request, 'home.html', 
+            {'error':'Name required'})
  
-        return render(request, 'result.html', {'name':name, 'color':color})
+        return render(request, 'result.html', 
+        {'name':name, 'color':color})
  
     return render(request, 'home.html')
 
 def about(request):
-    return render(request, 'greeting/about.html')
+    return render(request, 'about.html')
