@@ -4,7 +4,11 @@ This project is a simple web application built using the Django framework. The a
  
 ## Instructions for Build and Use
  
+<<<<<<< HEAD
 [Software Demo]https://youtu.be/JFegidFuZ5c
+=======
+[Software Demo](https://youtu.be/JFegidFuZ5c)
+>>>>>>> 32777b6f9239e6ad1311924fead56b77ce89b50e
  
 Steps to build and/or run the software:
 1. Install Python (version 3.10 or later recommended).
