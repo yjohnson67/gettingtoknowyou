@@ -7,11 +7,20 @@
  
 <form method="POST">
   {% csrf_token %}
-  Name: <input type="text" name="name"><br>
-  Favorite Color: <input type="text" name="color"><br>
-<button type="submit">Submit</button>
-</form>
+ Name: <input type="text" name="name" id="name"><br>
+Favorite Color: <input type="text" name="color" id="color"><br>
+<button type="button" onclick="sendToFlutter()">Play</button>
 
 {% if error %}
 <p style="color:red">{{ error }}</p>
 {% endif %}
+
+<script>
+function sendToFlutter() {
+  const name = document.getElementById("name").value || "Pilot";
+  const color = document.getElementById("color").value || "#00AEEF";
+  if (window.FlutterGame) {
+    FlutterGame.postMessage(name + "|" + color);
+  }
+}
+</script>
