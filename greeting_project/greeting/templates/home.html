@@ -4,23 +4,34 @@
 </nav>
 
 <h1>Greeting App</h1>
- 
+
 <form method="POST">
   {% csrf_token %}
- Name: <input type="text" name="name" id="name"><br>
-Favorite Color: <input type="text" name="color" id="color"><br>
-<button type="button" onclick="sendToFlutter()">Play</button>
+  Name: <input type="text" name="name" id="name"><br>
+  Favorite Color: <input type="text" name="color" id="color" placeholder="#00AEEF"><br>
+  <button type="button" onclick="sendToFlutter()">Play</button>
+</form>
+
+<p id="status" style="font-weight:bold; margin-top:10px;"></p>
 
 {% if error %}
-<p style="color:red">{{ error }}</p>
+   <p style="color:red">{{ error }}</p>
 {% endif %}
 
 <script>
 function sendToFlutter() {
   const name = document.getElementById("name").value || "Pilot";
   const color = document.getElementById("color").value || "#00AEEF";
-  if (window.FlutterGame) {
-    FlutterGame.postMessage(name + "|" + color);
+  const payload = `${name}|${color}`;
+
+  // Visible proof click fired
+  document.getElementById("status").innerText = "Clicked! Payload: " + payload;
+
+  if (typeof FlutterGame !== "undefined" && FlutterGame.postMessage) {
+    FlutterGame.postMessage(payload);
+    document.getElementById("status").innerText += " ✅ Sent to Flutter";
+  } else {
+    document.getElementById("status").innerText += " ❌ FlutterGame not available";
   }
 }
 </script>
