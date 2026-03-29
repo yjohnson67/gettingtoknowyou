@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
 
 def home(request):
    if request.method == 'POST':
@@ -19,6 +20,7 @@ from django.http import JsonResponse
 from django.utils.timezone import now
 from .mongodb import scores_collection
 
+@csrf_exempt
 def save_test_score(request):
     result = scores_collection.insert_one({
         "player_name": "Test Player",
