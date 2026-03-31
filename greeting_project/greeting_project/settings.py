@@ -38,7 +38,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'greeting',
-    
 ]
 
 MIDDLEWARE = [
@@ -117,5 +116,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 X_FRAME_OPTIONS = 'ALLOWALL'
+
+MONGODB_URI = os.environ.get("MONGODB_URI")
+MONGODB_DB_NAME = "rocket_game"

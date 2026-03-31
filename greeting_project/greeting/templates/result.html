@@ -1,9 +1,9 @@
 <body style="background-color:{{ color }}">
-<h1>Hello {{ name }}!</h1>
-<p>Your favorite color is {{ color }}</p>
-</body>
+  <nav>
+    <a href="{% url 'home' %}">Home</a> |
+    <a href="{% url 'about' %}">About</a>
+  </nav>
 
-<nav>
-  <a href="{% url 'home' %}">Home</a> |
-  <a href="{% url 'about' %}">About</a>
-</nav>
+  <h1>Hello {{ name }}!</h1>
+  <p>Your favorite color is {{ color }}</p>
+</body>

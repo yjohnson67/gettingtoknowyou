@@ -1,71 +1,64 @@
 <nav>
-<a href="{% url 'home' %}">Home</a> |
-<a href="{% url 'about' %}">About</a>
+  <a href="{% url 'home' %}">Home</a> |
+  <a href="{% url 'about' %}">About</a>
 </nav>
-<h1>Greeting App</h1>
-<form method="POST">
 
+<h1>Greeting App</h1>
+
+<form method="POST">
   {% csrf_token %}
 
   Name: <input type="text" name="name" id="name"><br><br>
-<p>Choose a Rocket Color:</p>
-<label>
-<input type="radio" name="colorChoice" value="#FF0000" checked>
 
+  <p>Choose a Rocket Color:</p>
+
+  <label>
+    <input type="radio" name="colorChoice" value="#FF0000" checked>
     Red
-</label><br>
-<label>
-<input type="radio" name="colorChoice" value="#0000FF">
+  </label><br>
 
+  <label>
+    <input type="radio" name="colorChoice" value="#0000FF">
     Blue
-</label><br>
-<label>
-<input type="radio" name="colorChoice" value="#00AA00">
+  </label><br>
 
+  <label>
+    <input type="radio" name="colorChoice" value="#00AA00">
     Green
-</label><br>
-<label>
-<input type="radio" name="colorChoice" value="#8000FF">
+  </label><br>
 
+  <label>
+    <input type="radio" name="colorChoice" value="#8000FF">
     Purple
-</label><br>
-<label>
-<input type="radio" name="colorChoice" value="#FFA500">
+  </label><br>
 
+  <label>
+    <input type="radio" name="colorChoice" value="#FFA500">
     Orange
-</label><br><br>
-<button type="button" onclick="sendToFlutter()">Play</button>
+  </label><br><br>
+
+  <button type="button" onclick="sendToFlutter()">Play</button>
 </form>
+
 <p id="status" style="font-weight:bold; margin-top:10px;"></p>
 
 {% if error %}
-<p style="color:red">{{ error }}</p>
-
+  <p style="color:red">{{ error }}</p>
 {% endif %}
+
 <script>
-
 function sendToFlutter() {
-
   const name = document.getElementById("name").value || "Pilot";
-
   const color = document.querySelector('input[name="colorChoice"]:checked').value;
-
   const payload = `${name}|${color}`;
 
   document.getElementById("status").innerText = "Clicked! Payload: " + payload;
 
   if (typeof FlutterGame !== "undefined" && FlutterGame.postMessage) {
-
     FlutterGame.postMessage(payload);
-
     document.getElementById("status").innerText += " ✅ Sent to Flutter";
-
   } else {
-
     document.getElementById("status").innerText += " ❌ FlutterGame not available";
-
   }
-
 }
 </script>
- 
