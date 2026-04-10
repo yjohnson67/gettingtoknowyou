@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Player Stats</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 30px;
+        }
+
+        h1, h2 {
+            margin-bottom: 10px;
+        }
+
+        .nav-links {
+            margin-bottom: 20px;
+        }
+
+        .nav-links a {
+            margin-right: 15px;
+        }
+
+        .stats-box {
+            margin-bottom: 25px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            width: 500px;
+            max-width: 100%;
+        }
+
+        .chart-box {
+            margin-bottom: 30px;
+        }
+
+        img {
+            max-width: 700px;
+            width: 100%;
+            border: 1px solid #ddd;
+            padding: 10px;
+            background: white;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 700px;
+            max-width: 100%;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Player Stats: {{ player_name }}</h1>
+
+    <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/leaderboard/">Leaderboard</a>
+        <a href="/dashboard/">Dashboard</a>
+    </div>
+
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% else %}
+        <div class="stats-box">
+            <p><strong>Games Played:</strong> {{ games_played }}</p>
+            <p><strong>Best Score:</strong> {{ best_score }}</p>
+            <p><strong>Average Score:</strong> {{ average_score }}</p>
+            <p><strong>Trend:</strong> {{ trend }}</p>
+        </div>
+
+        <div class="chart-box">
+            <h2>Score History Chart</h2>
+            <img src="data:image/png;base64,{{ line_chart }}" alt="Score History Chart">
+        </div>
+
+        <div class="chart-box">
+            <h2>Score Distribution Chart</h2>
+            <img src="data:image/png;base64,{{ distribution_chart }}" alt="Score Distribution Chart">
+        </div>
+
+        <h2>Game History</h2>
+        <table>
+            <tr>
+                <th>Game</th>
+                <th>Score</th>
+                <th>Played At</th>
+            </tr>
+            {% for item in score_history %}
+            <tr>
+                <td>{{ item.game_number }}</td>
+                <td>{{ item.score }}</td>
+                <td>{{ item.played_at }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+</body>
+</html>

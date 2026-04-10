@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Game Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 30px;
+        }
+
+        h1, h2 {
+            margin-bottom: 10px;
+        }
+
+        .nav-links {
+            margin-bottom: 20px;
+        }
+
+        .nav-links a {
+            margin-right: 15px;
+        }
+
+        .summary-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .summary-card {
+            border: 1px solid #ccc;
+            padding: 15px;
+            width: 180px;
+            background: #f9f9f9;
+        }
+
+        .chart-box {
+            margin-bottom: 30px;
+        }
+
+        img {
+            max-width: 800px;
+            width: 100%;
+            border: 1px solid #ddd;
+            padding: 10px;
+            background: white;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 700px;
+            max-width: 100%;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Game Dashboard</h1>
+
+    <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/leaderboard/">Leaderboard</a>
+    </div>
+
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% else %}
+        <div class="summary-grid">
+            <div class="summary-card">
+                <strong>Total Games</strong>
+                <p>{{ total_games }}</p>
+            </div>
+            <div class="summary-card">
+                <strong>Total Players</strong>
+                <p>{{ total_players }}</p>
+            </div>
+            <div class="summary-card">
+                <strong>Average Score</strong>
+                <p>{{ average_score }}</p>
+            </div>
+            <div class="summary-card">
+                <strong>Highest Score</strong>
+                <p>{{ highest_score }}</p>
+            </div>
+        </div>
+
+        <div class="chart-box">
+            <h2>Top 10 Players Chart</h2>
+            <img src="data:image/png;base64,{{ top10_chart }}" alt="Top 10 Players Chart">
+        </div>
+
+        <div class="chart-box">
+            <h2>All Scores Over Time</h2>
+            <img src="data:image/png;base64,{{ time_chart }}" alt="Scores Over Time Chart">
+        </div>
+
+        <h2>Top 10 Leaderboard</h2>
+        <table>
+            <tr>
+                <th>Rank</th>
+                <th>Player</th>
+                <th>Best Score</th>
+            </tr>
+            {% for player in top_ten %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>
+                    <a href="/player/{{ player.player_name }}/">
+                        {{ player.player_name }}
+                    </a>
+                </td>
+                <td>{{ player.best_score }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+</body>
+</html>
