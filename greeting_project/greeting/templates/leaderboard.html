@@ -1,20 +1,81 @@
-from django.urls import path
-from .views import (
-    home,
-    about,
-    save_test_score,
-    leaderboard,
-    leaderboard_api,
-    player_stats,
-    dashboard,
-)
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Leaderboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 30px;
+        }
 
-urlpatterns = [
-    path("", home, name="home"),
-    path("about/", about, name="about"),
-    path("save-test-score/", save_test_score, name="save_test_score"),
-    path("leaderboard/", leaderboard, name="leaderboard"),
-    path("api/leaderboard/", leaderboard_api, name="leaderboard_api"),
-    path("player/<str:player_name>/", player_stats, name="player_stats"),
-    path("dashboard/", dashboard, name="dashboard"),
-]
+        h1 {
+            margin-bottom: 10px;
+        }
+
+        .nav-links {
+            margin-bottom: 20px;
+        }
+
+        .nav-links a {
+            margin-right: 15px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 550px;
+            max-width: 100%;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+
+        .error {
+            color: red;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Top 10 Leaderboard</h1>
+
+    <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/dashboard/">Dashboard</a>
+    </div>
+
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
+
+    <table>
+        <tr>
+            <th>Rank</th>
+            <th>Player</th>
+            <th>Best Score</th>
+        </tr>
+
+        {% for player in leaderboard %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>
+                <a href="/player/{{ player.player_name }}/">
+                    {{ player.player_name }}
+                </a>
+            </td>
+            <td>{{ player.best_score }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="3">No scores found.</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
